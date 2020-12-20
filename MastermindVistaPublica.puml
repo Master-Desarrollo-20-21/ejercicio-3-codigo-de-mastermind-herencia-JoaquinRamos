@@ -1,0 +1,137 @@
+@startuml
+class Combinacion [[java:mastermind.Combinacion]] {
+	#{static}int longitudCombinacion
+	+Combinacion()
+	+String toString()
+	+void imprimir()
+	+void leer()
+	-String chequeaError(String texto)
+	#void setCombinacionAleatoria()
+	#boolean contieneIndice(int indice)
+	#boolean equals(Combinacion cc)
+	+Resultado comparar(Combinacion cc)
+}
+class ColorCombinacion [[java:mastermind.ColorCombinacion]] {
+}
+Combinacion --> "*" ColorCombinacion : colores
+class Console [[java:mastermind.Console]] {
+}
+Combinacion --> "1" Console : consola
+class Console [[java:mastermind.Console]] {
+	-{static}Console console
+	-BufferedReader bufferedReader
+	+{static}Console getInstance()
+	+String readString(String title)
+	+String readString()
+	+int readInt(String title)
+	+char readChar(String title)
+	+void writeln()
+	+void write(String string)
+	+void write(int integer)
+	+void writeln(String string)
+	+void writeln(int integer)
+	+void write(char character)
+	+void writeError(String format)
+}
+class Resultado [[java:mastermind.Resultado]] {
+	-int blancos
+	-int negros
+	#{static}int longitudResultado
+	+Resultado(int blancos, int negros)
+	+void imprimir()
+	+void imprimirResumenResultado()
+}
+class ColorResultado [[java:mastermind.ColorResultado]] {
+}
+Resultado --> "*" ColorResultado : colores
+class Console [[java:mastermind.Console]] {
+}
+Resultado --> "1" Console : consola
+class Tablero [[java:mastermind.Tablero]] {
+	-int numIntentosMaximos
+	-int numIntento
+	+Tablero()
+	+void jugar()
+}
+class CombinacionSecreta [[java:mastermind.CombinacionSecreta]] {
+}
+Tablero --> "1" CombinacionSecreta : combinacionSecreta
+class Intento [[java:mastermind.Intento]] {
+}
+Tablero --> "*" Intento : intentos
+class Console [[java:mastermind.Console]] {
+}
+Tablero --> "1" Console : consola
+class Intento [[java:mastermind.Intento]] {
+	-String estadoJugador
+	+Intento(CombinacionSecreta combinacionSecreta)
+	+String getEstadoJugador()
+	+void setEstadoJugador(String estadoJugador)
+}
+class Combinacion [[java:mastermind.Combinacion]] {
+}
+Intento --> "1" Combinacion : combinacionPropuesta
+class CombinacionSecreta [[java:mastermind.CombinacionSecreta]] {
+}
+Intento --> "1" CombinacionSecreta : combinacionSecreta
+class Resultado [[java:mastermind.Resultado]] {
+}
+Intento --> "1" Resultado : resultado
+enum ColorCombinacion [[java:mastermind.ColorCombinacion]] {
+	Rojo
+	Naranja
+	Azul
+	Violeta
+	Marrón
+	Gris
+	clave
+	~ColorCombinacion(char clave)
+	+{static}ColorCombinacion obtenerColor(char caracter)
+	+{static}char getClaveEnIndice(int index)
+	+char getClave()
+	+String getValor()
+	+{static}String getTodasClaves()
+}
+class Mastermind [[java:mastermind.Mastermind]] {
+	+void jugar()
+	-boolean quiereContinuar()
+	+{static}void main(String[] args)
+}
+class Tablero [[java:programaOrientadoObjetos.Tablero]] {
+}
+Mastermind --> "1" Tablero : tablero
+class Console [[java:mastermind.Console]] {
+}
+Mastermind --> "1" Console : consola
+enum ColorResultado [[java:mastermind.ColorResultado]] {
+	Blanco
+	Negro
+	clave
+	~ColorResultado(char clave)
+	+{static}ColorResultado obtenerColor(char caracter)
+	+{static}char getClaveEnIndice(int index)
+	+char getClave()
+	+String getValor()
+	+{static}String getTodasClaves()
+}
+class CombinacionSecreta [[java:mastermind.CombinacionSecreta]] {
+	-{static}Console consola
+	+CombinacionSecreta()
+	+void imprimir()
+}
+class Combinacion [[java:mastermind.Combinacion]] {
+}
+Combinacion <|-- CombinacionSecreta
+class Propiedades [[java:mastermind.Propiedades]] {
+	+{static}int LONGITUD_COMBINACION
+	+{static}int MAXIMO_INTENTOS
+	+{static}String ASTERISCO
+	+{static}String MENSAJE_QUIERECONTINUAR
+	+{static}String MENSAJE_INTRODUZCA_COMBINACION
+	+{static}String MENSAJE_GANADOR
+	+{static}String MENSAJE_PERDEDOR
+	+{static}String ERROR_LONGITUD
+	+{static}String ERROR_COLORES_ERRONEOS
+	+{static}String ERROR_COLORES_DUPLICADOS
+}
+@enduml
